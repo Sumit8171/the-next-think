@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rocket Launch Simulation</title>
+</head>
+<body>
+	<canvas id="rocket-canvas"></canvas>
+	<script>
+		// Get reference to canvas and set its dimensions
+		const canvas = document.getElementById('rocket-canvas');
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		const ctx = canvas.getContext('2d');
+
+		// Define rocket object with initial properties
+		const rocket = {
+			x: canvas.width / 2,
+			y: canvas.height,
+			vx: 0,
+			vy: 0,
+			ax: 0,
+			ay: -0.1,
+		}
+
+		// Render function to draw rocket on canvas
+		function render() {
+			// Clear canvas
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			// Draw rocket
+			ctx.fillRect(rocket.x, rocket.y, 10, 30);
+		}
+
+		// Update function to update rocket's position and velocity
+		function update() {
+			// Update velocity
+			rocket.vx += rocket.ax;
+			rocket.vy += rocket.ay;
+
+			// Update position
+			rocket.x += rocket.vx;
+			rocket.y += rocket.vy;
+		}
+
+		// Loop function to update and render in a loop using requestAnimationFrame
+		function loop() {
+			update();
+			render();
+			requestAnimationFrame(loop);
+		}
+
+		// Call loop function to start the simulation
+		loop();
+	</script>
+</body>
+</html>
